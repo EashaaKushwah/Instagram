@@ -67,8 +67,9 @@ func GetPeopleEndpoint(response http.ResponseWriter, request *http.Request) {
 
 type Person struct {
 	ID        primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
-	Firstname string             `json:"firstname,omitempty" bson:"firstname,omitempty"`
-	Lastname  string             `json:"lastname,omitempty" bson:"lastname,omitempty"`
+	Name string             `json:"name,omitempty" bson:"name,omitempty"`
+	Email  string             `json:"email,omitempty" bson:"email,omitempty"`
+	Password  string             `json:"password,omitempty" bson:"password,omitempty"`
 }
 
 func main() {
@@ -79,6 +80,7 @@ func main() {
 	router := Instagram.NewRouter()
 	router.HandleFunc("/person", CreatePersonEndpoint).Methods("POST")
 	router.HandleFunc("/people", GetPeopleEndpoint).Methods("GET")
+	router.HandleFunc("/person/{id}", GetPersonEndpoint).Methods("GET")
 	router.HandleFunc("/person/{id}", GetPersonEndpoint).Methods("GET")
 	http.ListenAndServe(":12345", router)
 }
